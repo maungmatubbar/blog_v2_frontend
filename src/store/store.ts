@@ -11,8 +11,9 @@ import {
     persistStore,
   } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { authSlice } from '../features/auth/loginSlice';
 const reducers = combineReducers({
-   
+    LOGIN_USER: authSlice.reducer,
   });
 const persistConfig = {
     key: "root",
