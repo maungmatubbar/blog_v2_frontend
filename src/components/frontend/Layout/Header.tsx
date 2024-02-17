@@ -1,10 +1,9 @@
-import React from 'react'
 import MainMenu from './MainMenu';
 
 const Header = () => {
   return (
     <>
-       <header className="flex bg-black sticky top-0 shadow-md z-[999]">
+       <header className="flex bg-slate-800 sticky top-0 shadow-md z-[999] py-3">
         <div className="container mx-auto">
           <nav className=" flex justify-between">
             <div>

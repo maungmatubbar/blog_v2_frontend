@@ -9,4 +9,10 @@ export type RouteInterface =  {
   children?: RouteInterface[];
   auth?: boolean;
   element?: JSX.Element;
+  hideFromLable?: boolean;
+}
+export const UserTypes = {
+  PUBLIC: 'public',
+  ADMIN: 'admin',
+  USER: 'user'
 }

@@ -1,13 +1,11 @@
-import Blog from '../../../features/frontend/Blog/Blog'
-import Layout from '../../../components/frontend/Layout/Layout'
+import Blog from "../../../features/frontend/Blog/Blog";
 
 const BlogPage = () => {
   return (
-    <><Layout>
-        <Blog/>
-      </Layout>
-      </>
-  )
-}
+    <>
+      <Blog />
+    </>
+  );
+};
 
-export default BlogPage
+export default BlogPage;
