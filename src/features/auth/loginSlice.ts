@@ -5,15 +5,15 @@ export enum Login {
   LOGIN_USER = "LOGIN_USER",
 }
 const initialState: LoginInterface = {
-  loading: false,
   name: "mong", // for user object
   email: null,
-  id: null,
+  _id: null,
   token: null, // for storing the JWT
-  error: null,
-  success: false, // for monitoring the registration process.
-  roles: [],
+  phone: null,
+  address: null,
+  role: null,
   permissions: [],
+  success: false
 };
 
 export const authSlice = createSlice({
@@ -24,13 +24,11 @@ export const authSlice = createSlice({
     updateLoggedInUserState: (state, action: PayloadAction<LoginInterface>) => {
       state.name = action.payload?.name;
       state.email = action.payload?.email;
-      state.id = action.payload?.id;
+      state.address = action.payload?.address;
+      state.phone = action.payload?.phone;
+      state.role = action.payload?.role;
       state.token = action.payload?.token;
-      state.loading = action.payload?.loading;
-      state.error = action.payload?.error;
       state.success = action.payload?.success;
-      state.permissions = action?.payload?.permissions;
-      state.roles = action.payload.roles;
     },
   },
 });

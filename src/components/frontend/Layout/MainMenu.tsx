@@ -8,7 +8,7 @@ import { RouteInterface } from "../../../routes/RouteInterface";
 
 const MainMenu = () => {
   const routes: any = AppRoutes[0]?.children;
- 
+  
   return (
     <>
       <ul className="flex items-center font-Outfit text-[14px] gap-3 list-none">

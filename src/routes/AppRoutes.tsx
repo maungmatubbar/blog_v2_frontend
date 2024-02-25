@@ -59,6 +59,7 @@ export const AppRoutes = [
     children: [
       {
         index: true,
+        path: '/dashboard',
         label: "Dashboard",
         element: <DashboardPage />,
         icon: <DashboardIcon />

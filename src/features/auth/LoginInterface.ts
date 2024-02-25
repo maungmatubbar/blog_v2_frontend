@@ -1,13 +1,13 @@
 export interface LoginInterface {
-    loading: boolean;
     name: string | null; // type for user object may vary, such as { name: string, age: number, ... }
     token: string | null; // type can be JWT or any other token format
-    error: string | null;
-    success: boolean;
     email: string | null;
-    id: number | null;
-    roles: [];
+    _id: number | null;
+    role: number | null;
+    phone: string | null,
+    address: string | null
     permissions: Permissions[];
+    success: boolean
   }
   
   export interface Roles {
