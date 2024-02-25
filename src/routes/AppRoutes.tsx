@@ -3,7 +3,7 @@ import Layout from "../components/frontend/Layout/Layout";
 import Contact from "../features/frontend/Contact/Contact";
 import Login from "../features/frontend/Login/Login";
 import { BlogIcon, CategoryIcon, DashboardIcon, UserIcon } from "../icons/MenuIcons";
-import Category from "../pages/backend/category/Category";
+import Category from "../pages/backend/category/CategoryPage";
 import DashboardPage from "../pages/backend/dashboard/DashboardPage";
 import User from "../pages/backend/users/User";
 //import Login from "../features/frontend/Login/Login";
