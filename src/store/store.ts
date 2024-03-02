@@ -12,8 +12,10 @@ import {
   } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { authSlice } from '../features/auth/loginSlice';
+import { categorySlice } from '../features/backend/category/CategorySlice';
 const reducers = combineReducers({
     LOGIN_USER: authSlice.reducer,
+    CATEGORY: categorySlice.reducer,
   });
 const persistConfig = {
     key: "root",

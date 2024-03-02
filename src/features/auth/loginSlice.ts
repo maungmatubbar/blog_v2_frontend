@@ -5,7 +5,7 @@ export enum Login {
   LOGIN_USER = "LOGIN_USER",
 }
 const initialState: LoginInterface = {
-  name: "mong", // for user object
+  name: null, // for user object
   email: null,
   _id: null,
   token: null, // for storing the JWT

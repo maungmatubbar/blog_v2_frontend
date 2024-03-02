@@ -1,10 +1,11 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
-import { Form, Input } from "antd";
+import { Alert, Form, Input } from "antd";
 import { userLogin } from "./LoginApi";
 import { useAppDispatch } from "../../../store/store";
 import { updateLoggedInUserState } from "../../auth/loginSlice";
 import { useNavigate } from "react-router-dom";
+
 type FieldType = {
   email?: string;
   password?: string;
@@ -21,8 +22,7 @@ const LoginForm = () => {
     const handleLoginSubmit = async(value:{email:string, password:string}) => {
         mutate(value);
     }
-    console.log()
-    if(loginStatus === 'success'){
+    if(loginData?.success){
         console.log(loginData);
         let userData = {
             ...loginData?.user,
@@ -31,11 +31,21 @@ const LoginForm = () => {
         }
         dispatch(updateLoggedInUserState(userData));
         localStorage.setItem('_u_token',loginData?.token);
+       
         navigate("/dashboard");
+    }
+    else {
+      console.log(loginData?.message);
     }
     
   return (
     <>
+      {loginData?.success === false && <Alert className="mb-4"
+      message={loginData?.message}
+      type="error"
+      showIcon
+      closable
+    />}
       <Form onFinish={handleLoginSubmit}>
         <Form.Item<FieldType>
           name="email"

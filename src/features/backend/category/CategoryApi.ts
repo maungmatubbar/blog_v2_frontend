@@ -1,4 +1,8 @@
 const baseUrl = 'http://localhost:8000/api';
+let headersList = {
+   "Accept": "application/json",
+   "Content-Type": "application/json"
+  }
 export const getAllCategory = async ({ queryKey }:any) =>
  {
     const [_key, { currentPage,searchQuery }] = queryKey
@@ -6,4 +10,19 @@ export const getAllCategory = async ({ queryKey }:any) =>
                             .then(res=>res.json())
                             .then(data=>data as any[])
             return response;
+}
+export const createCategory = async (data:{name:string}) =>
+ {
+    try {
+      const response = await fetch(`${baseUrl}/category/create`,{
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: headersList
+  }).then(res=>res.json())
+   .then(data=>data as any[])
+   return response;
+    }
+    catch(error){
+      console.log(error)
+    }
 }

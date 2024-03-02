@@ -2,21 +2,26 @@ import { useQuery } from '@tanstack/react-query';
 import { Button, Form, Input, Table } from 'antd';
 import { getAllCategory } from './CategoryApi';
 import { Breadcrumb } from 'antd';
-import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
+import {  HomeOutlined, SearchOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { CategoryParamsInterface } from './CategoryInterface';
 import { useEffect, useState } from 'react';
+import CategoryCreateModal from './CategoryCreateModal';
+import { RootState, useAppDispatch, useAppSelector } from '../../../store/store';
+import { openCloseCategoryCreateModal } from './CategorySlice';
 const Category = () => {
   const [searchQuery,setSearchQuery] = useState("");
+  const categoryState = useAppSelector((state:RootState)=>state.CATEGORY)
+  const dispatch = useAppDispatch();
   const [params, setParams] = useState<CategoryParamsInterface>({
     loading: true,
     page: 1,
     query: null,
-    limit: 3,
+    limit: 5,
     total: 0,
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const {data,isLoading,isSuccess} = useQuery({
+  const {data,isLoading} = useQuery({
     queryKey: ['category_list',{currentPage,searchQuery}],
     queryFn: getAllCategory
   });
@@ -27,12 +32,12 @@ const Category = () => {
       key: 'name',
     },
   ];
-  const handleSearch = (value:string) => {
-    setSearchQuery(value)
+  const handleSearch = (data:any) => {
+    setSearchQuery(data?.search);
   }
 
   useEffect(()=>{
-    if(isSuccess){
+    if(data?.status === 'success'){
       setParams((prev:CategoryParamsInterface)=>({
         ...prev,
         loading: false,
@@ -41,7 +46,7 @@ const Category = () => {
         total:  data?.total,
       }))
     }
-  },[])
+  },[data])
  
   return (
     <>
@@ -70,7 +75,7 @@ const Category = () => {
            <SearchOutlined/> Search
           </Button>
       </Form>
-      <Button className='text-[14px] text-white bg-primary-500 transition duration-300 hover:bg-primary-400'>Create</Button>
+      <Button onClick={()=>dispatch(openCloseCategoryCreateModal(!categoryState?.createModal))} className='text-[14px] text-white bg-primary-500 transition duration-300 hover:bg-primary-400'>Create</Button>
     </div>
       <Table loading={isLoading} 
       columns={columns}
@@ -89,6 +94,7 @@ const Category = () => {
         },
       }}
        />
+       <CategoryCreateModal />
     </>
   )
 }
