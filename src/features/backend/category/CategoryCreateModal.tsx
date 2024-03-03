@@ -1,4 +1,4 @@
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { CloseCircleOutlined, SmileOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, notification } from "antd";
 import {
   RootState,
@@ -8,43 +8,47 @@ import {
 import { openCloseCategoryCreateModal } from "./CategorySlice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCategory } from "./CategoryApi";
-import type { NotificationArgsProps } from "antd";
 import { useEffect } from "react";
 
-type NotificationPlacement = NotificationArgsProps["message"];
 const CategoryCreateModal = () => {
-    const [form] = Form.useForm();
-    const queryClient = useQueryClient();
-  const [api] = notification.useNotification();
+  const [form] = Form.useForm();
+  const queryClient = useQueryClient();
   const categoryState = useAppSelector((state: RootState) => state.CATEGORY);
   const dispatch = useAppDispatch();
-  const { mutate, data:cateogryData, status } = useMutation({
+  const {
+    mutate,
+    data: cateogryData,
+    status,
+  } = useMutation({
     mutationFn: async (data: any) => {
       return await createCategory(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["category_list"])
-    }
+      queryClient.invalidateQueries(["category_list"]);
+    },
   });
   const handleSubmit = async (data: { name: string }) => {
     mutate(data);
   };
-
-  const openNotification = (message: NotificationPlacement) => {
-    api.info({
-      message: message,
-    });
-  };
-  console.log(cateogryData)
-  useEffect(()=>{
-    if (cateogryData?.success) {
-        openNotification(cateogryData?.message);
-        form.resetFields();
+  if (status === "success") {
+    form.resetFields();
+  }
+  console.log(cateogryData);
+  useEffect(() => {
+    if (status === "success") {
+      if (cateogryData?.success) {
+        notification.success({
+          message: cateogryData?.message,
+          icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+        });
         dispatch(openCloseCategoryCreateModal(!categoryState?.createModal));
       } else {
         console.log(cateogryData);
       }
-  },[cateogryData?.success])
+     
+    }
+  }, [cateogryData?.success]);
+
   return (
     <>
       <Modal
@@ -56,7 +60,7 @@ const CategoryCreateModal = () => {
           dispatch(openCloseCategoryCreateModal(!categoryState?.createModal))
         }
       >
-        <Form onFinish={handleSubmit}>
+        <Form form={form} onFinish={handleSubmit}>
           <div className="flex items-center gap-3">
             <Form.Item
               name={"name"}
@@ -72,9 +76,9 @@ const CategoryCreateModal = () => {
                 size="large"
                 htmlType="submit"
                 className="bg-green-400 text-white"
-                disabled={status ==='pending'}
+                disabled={status === "pending"}
               >
-                {status ==='pending'?'Creating...':'Create'}
+                {status === "pending" ? "Creating..." : "Create"}
               </Button>
             </Form.Item>
           </div>

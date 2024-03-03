@@ -49,7 +49,7 @@ const BLayout = () => {
       </aside>
 
       <main>
-        <div className="flex items-center justify-between min-h-[60px] bg-gray-800 px-10 sticky top-0">
+        <div className="flex items-center justify-between min-h-[60px] bg-gray-800 px-10 sticky top-0 z-[999]">
           <div></div>
           <div><Avatar size="large" icon={<UserOutlined />} /></div>
         </div>

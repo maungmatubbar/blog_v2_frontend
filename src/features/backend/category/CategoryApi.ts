@@ -26,3 +26,17 @@ export const createCategory = async (data:{name:string}) =>
       console.log(error)
     }
 }
+export const deleteCategory = async (catId:string) =>
+ {
+    try {
+          const response = await fetch(`${baseUrl}/category/delete-category/${catId}`,{
+            method: 'DELETE'
+          }).then(res=>res.json())
+            .then(data=>data as any[])
+            return response;
+   
+    }
+    catch(error){
+      console.log(error)
+    }
+}
